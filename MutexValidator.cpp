@@ -99,7 +99,7 @@ public:
     /// \brief A method for verifying the validity of the main object
     /// \warning Should only be used inside Lock and Unlock
     /// \return returns the true if the main object is valid, otherwise it is false
-    bool GetIsValid()
+    bool GetIsValid() const
     {
         return *IsValid;
     }
