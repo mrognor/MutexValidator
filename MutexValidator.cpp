@@ -68,7 +68,6 @@ public:
         if (this != &other)
         {
             // Clear old data
-            Mtx->lock();
 
             --*Counter;
             if (*Counter == 0)
@@ -77,8 +76,6 @@ public:
                 delete Counter;
                 delete IsValid;
             }
-        
-            Mtx->unlock();
 
             // Set new data
             other.Mtx->lock();
@@ -126,8 +123,6 @@ public:
     /// \brief Default destructor
     ~MutexValidator()
     {
-        Mtx->lock();
-
         if(IsOriginal)
             *IsValid = false;
         
@@ -139,11 +134,10 @@ public:
             delete Counter;
             delete IsValid;
         }
-
-        Mtx->unlock();
     }
 };
 
+// Конструктор копирования не потокобезопасен
 int main()
 {
     MutexValidator* mwvp = new MutexValidator;
